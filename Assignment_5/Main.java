@@ -1,5 +1,4 @@
 
-// TODO: Implement your classes here
 
 public class Main {
     public static void main(String[] args) {
@@ -119,9 +118,7 @@ public class ScannerPrinterImpl implements ScannerPrinter {
     }
 
     @Override
-    public boolean scanPrint(int numPages) {
-        return this.s.scan(numPages) && this.p.print(numPages);
-    }
+    public boolean scanPrint(int numPages) { return this.s.scan(numPages) && this.p.print(numPages); }
 
     @Override
     public boolean scan(int numPages) { return this.s.scan(numPages); }
@@ -136,8 +133,5 @@ public class ScannerPrinterImpl implements ScannerPrinter {
     public boolean replenishToner(int t) { return this.p.replenishToner(t); }
 
 }
-
-
-
 
 
