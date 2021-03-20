@@ -2,29 +2,6 @@
 import java.util.*;
 import java.lang.Math;
 
-class Audio {
-    private int numSamples;
-    private float sampleRate;
-    Audio(int s, float sps) {
-        numSamples = s;
-        sampleRate = sps;
-    }
-    public float plabackTime() {
-        return numSamples/sampleRate;
-    }
-}
-
-class Video {
-    private int numFrames;
-    private float frameRate;
-    Video(int f, float fps) {
-        numFrames = f;
-        frameRate = fps;
-    }
-    public float plabackTime() {
-        return numFrames/frameRate;
-    }
-}
 
 public class Main {
 
@@ -54,4 +31,53 @@ public class Main {
         System.out.println(totalPlaybackTime(videoList));
     }
 
+    public static <T> T selectRandom( List<T> lst ) { 
+        return lst.get( (int) Math.random() * lst.size() );
+    }
+
+    public static float playbackTimeWithSpeed( playableObject p, float f ) {
+        return p.plabackTime() / f;
+    }
+
+    public static <T extends playableObject> float totalPlaybackTime( List<T> p ) {
+        float s = 0.0f;
+        for(int i=0; i<p.size(); i++) {
+            s += p.get(i).plabackTime();
+        }
+        return s;
+    }
+
 }
+
+
+interface playableObject {
+
+    public float plabackTime();
+
+}
+
+class Audio implements playableObject {
+    private int numSamples;
+    private float sampleRate;
+    Audio(int s, float sps) {
+        numSamples = s;
+        sampleRate = sps;
+    }
+    public float plabackTime() {
+        return numSamples/sampleRate;
+    }
+}
+
+class Video implements playableObject{
+    private int numFrames;
+    private float frameRate;
+    Video(int f, float fps) {
+        numFrames = f;
+        frameRate = fps;
+    }
+    public float plabackTime() {
+        return numFrames/frameRate;
+    }
+}
+
+
