@@ -10,8 +10,8 @@ public class Main {
         // Use a method to find total size of myFS
         System.out.println("Total size = " + myFS.totalSize());
         // Use a visitor to print myFS
-        //PrintLargeFilesVisitor printer = new PrintLargeFilesVisitor();
-        //printer.Traverse(myFS);
+        PrintLargeFilesVisitor printer = new PrintLargeFilesVisitor();
+        printer.Traverse(myFS);
     }
 
     public static Directory generateMyFs() {
@@ -46,39 +46,63 @@ public class Main {
 interface FSObject {
 
     public int totalSize();
+    public void Accept( FSObjectVisitor visitor );
 
 }
 
 class File implements FSObject {
+    
     private String name;
     private int size;
+    
     public File(String n, int s) { name = n; size = s; }
+    
     public String getName() { return name; }
     public int getSize() { return size; }
+    
     @Override
     public int totalSize() {
         return this.getSize();
     }
+    
+    @Override
+    public void Accept( FSObjectVisitor visitor ) {
+        visitor.Visit(this);
+    }
+
 }
 
 class Link implements FSObject {
+    
     private String name;
     private String path;
+    
     public Link(String n, String p) { name = n; path = p; }
+    
     public String getName() { return name; }
     public String getPath() { return path; }
+    
     @Override
     public int totalSize() {
         return 0;
     }
+    
+    @Override
+    public void Accept( FSObjectVisitor visitor ) {
+        visitor.Visit(this);
+    }
 }
 
 class Directory implements FSObject {
+    
     private String name;
     private List<FSObject> list;
+    
     public Directory(String n, List<FSObject> l) { name = n; list = l; }
+    
     public String getName() { return name; }
     public List<FSObject> getList() { return list; }
+    
     @Override
     public int totalSize() {
         int s = 0;
@@ -87,6 +111,96 @@ class Directory implements FSObject {
         }
         return s;
     }
+
+    @Override
+    public void Accept( FSObjectVisitor visitor ) {
+        visitor.Visit(this);
+    }
 }
+
+interface FSObjectVisitor {
+
+    default void Traverse( FSObject fs ) { fs.Accept(this); }
+
+    public void Visit( File file );
+    public void Visit( Link link );
+    public void Visit( Directory dir );
+
+}
+
+class PrintLargeFilesVisitor implements FSObjectVisitor {
+
+    @Override
+    public void Visit( File file ) {
+        if( file.getSize() > 1048576 ) {
+            System.out.println( file.getName() );
+        }
+    }
+
+    @Override
+    public void Visit( Link link ) { }
+
+    @Override
+    public void Visit( Directory dir ) {
+        
+        List<FSObject> content = dir.getList();
+
+        for ( int i=0; i<content.size(); i++) {
+            this.Traverse( content.get(i) );
+        }
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
