@@ -118,6 +118,11 @@ void iterateOverString() {
     char current = input();
     while( 1 ) {
 
+        if (current == '\n') {
+            printf("The string at line %d is malformed.", numLines + 1);
+            exit(-1);
+        }
+        
         if (escapeMode == 0) {
 
             if( current == '"' ) {
@@ -153,14 +158,18 @@ void iterateOverComment() {
 
     char prev = '\0';
     char current = input();
-    while( prev != '*' || current != ')' ) {
+    while( (prev != '*' || current != ')') && current != '\0' ) {
 
         commentLength++;
 
         prev = current;
         current = input();
 
+    }
 
+    if( current == '\0' ) {
+        printf("The comment at line %d is malformed", numLines+1 );
+        exit(-1);
     }
 
     commentLength--;
