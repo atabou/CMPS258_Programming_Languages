@@ -7,23 +7,23 @@
     int numFunBindings = 0;         // Done
     int numAnonymousFunctions = 0;  // Done
     int numLetExpressions = 0;      // Done
-    int numIfThenElse = 0;          // Done (Ask)
+    int numIfThenElse = 0;          // Done
     int numBoolExpressions = 0;     // Done
     int numCaseExpressions = 0;     // Done
     int numArithmeticOps = 0;       // Done
     int numRelationalOps = 0;       // Done
-    int numSeparators = 0;          // Done (Ask)
+    int numSeparators = 0;          // Done
     int numIntConst = 0;            // Done
     int largestIntConst = 0;        // Done
     int numBoolConst = 0;           // Done
     int numStrings = 0;             // Done
-    int totalStringChars = 0;       // (Ask if special characters like \n or escaped characters should count in total), Also do we have to handle the case where the user does close a string a comment?
-    int largestStringSize = 0;      // (Also ask if input returns a single \ as char or will it count also the next char)
+    int totalStringChars = 0;       // Done
+    int largestStringSize = 0;      // Done
     int numIDs = 0;                 // Done
     int largestIDSize = 0;          // Done
     int numComments = 0;            // Done
-    int totalCommentChars = 0;      // (Ask if we can include in stdlib or even string)
-    int largestCommentSize = 0;     // (Ask)
+    int totalCommentChars = 0;      // Done
+    int largestCommentSize = 0;     // Done
     int numLines = 0;               // Done
 
     void iterateOverString();
@@ -31,11 +31,11 @@
 %}
 
 typesdef       int|real|string|char|bool
-arithmetic     \+|\-|\*|div|mod
+arithmetic     \+|-|\*|div|mod
 relational     (<=?)|(>=?)|=
 otherops       ::|=>|\|
 separators     [:\.\[\],\(\)\|;]
-identifier     [a-zA-Z_][a-zA-Z_']*
+identifier     [a-zA-Z_][a-zA-Z_'0-9]*
 
 %%
     /* Rules for keywords */
@@ -64,7 +64,7 @@ case            ++numCaseExpressions;
 
     /* Rules for arithmetic operators */
 
-{arithmetic}    ++numArithmeticOps;
+{arithmetic}    {++numArithmeticOps;}
 
     /* Rules for relational operators */
 
@@ -97,9 +97,9 @@ true|false      ++numBoolConst;
 
     /* Rule for whitespace */
 
-[\\t\\r ]
+[\t\r ]
  
-\\n             ++numLines;  
+\n             {++numLines;}  
 
 
     /* Catch unmatched tokens */
@@ -107,39 +107,69 @@ true|false      ++numBoolConst;
 
 %%
 
+// Those functions only compile when using gcc not g++, for g++ replace input() with yyinput()
+
 void iterateOverString() {
 
-    // char prev = '"';
-    // char current = input();
-    // while( input() != '\"' && prev != '\\' ) {
 
-    //     prev = current;
-    //     current = input();
+    int stringLength = 0;
 
-    // }
+    int escapeMode = 0;
+    char current = input();
+    while( 1 ) {
+
+        if (escapeMode == 0) {
+
+            if( current == '"' ) {
+                break;
+            } else if ( current == '\\' ) {
+                escapeMode = 1;
+            } else {
+                stringLength++;
+            }
+
+        } else {
+
+            stringLength++;
+            escapeMode = 0;
+
+        }
+
+        current = input();
+
+    }
+
+    totalStringChars += stringLength;
+
+    if( stringLength > largestStringSize ) {
+        largestStringSize = stringLength;
+    }
 
 }
 
 void iterateOverComment() {
 
-    // char* str = malloc( sizeof(char) );
-    
-    // char prev = '"';
-    // char current = input();
-    // while(current != '\"' && prev != '\\') {
-    //     str = str
-    // }
+    int commentLength = 0;
 
-    // free(str);
+    char prev = '\0';
+    char current = input();
+    while( prev != '*' || current != ')' ) {
 
-    // char prev = '*';
-    // char current = input();
-    // while( input() != '}' && prev != '*' ) {
+        commentLength++;
 
-    //     prev = current;
-    //     current = input();
+        prev = current;
+        current = input();
 
-    // }
+
+    }
+
+    commentLength--;
+
+    totalCommentChars += commentLength;
+
+    if( commentLength > largestCommentSize ) {
+        largestCommentSize = commentLength;
+    }
 
 }
 
