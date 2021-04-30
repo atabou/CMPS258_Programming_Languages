@@ -1,0 +1,121 @@
+\documentclass[10pt]{article}
+
+\usepackage[a4paper, margin=1in, landscape]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\begin{document}
+
+\subsection*{\textbf{1 - Type derivation for }$\displaystyle ( x+\ 2\  >\ 3) \ \&\&\ y\ $\textbf{with }$\displaystyle \Gamma \ =\ \{x:\ int,\ y:\ int\}$}
+
+$\\$
+$\\$
+$\\$
+$\\$
+
+\begin{equation*}
+\cfrac{\cfrac{\cfrac{\cfrac{VA}{\{x:\ int,\ y:\ int\} \ \vdash \ x\ :\ int\ } \ \ \ \ \cfrac{CA}{\{x:\ int,\ y:\ int\} \ \vdash \ 2\ :\ int}}{\{x:\ int,\ y:\ bool\} \ \vdash x\ +\ 2\ :\ int} \ ( AO) \ \ \ \ \cfrac{CA}{\{x:\ int,\ y:\ int\} \ \vdash \ 3\ :\ int}}{\{x:\ int,\ y:\ bool\} \ \vdash \ x\ +\ 2\  >\ 3\ \ :\ bool} \ ( RO) \ \ \ \ \ \ \ \cfrac{VA}{\{x:\ int,\ y:\ bool\} \ \vdash \ y\ :\ bool}}{\ \ \ \ \ \ \ \ \{x:\ int,\ y:\ bool\} \ \vdash \ ( x\ +\ 2\  >\ 3) \ \&\&\ y\ :\ bool} \ ( LCR)
+\end{equation*}
+
+$\\$
+$\\$
+$\\$
+$\\$
+
+$\implies$ Type derivation for code is correct and evaluates to $\displaystyle bool$
+
+\newpage
+
+\subsection*{\textbf{2 -} \textbf{Type Derivation for }$\displaystyle fn\ f\ \Longrightarrow \ fn\ x\ \Longrightarrow \ if\ x\ then\ f\ true\ else\ 19$\textbf{ with }$\displaystyle \Gamma \ =\ \{\ \}$}
+
+$\\$
+$\\$
+$\\$
+$\\$
+
+\begin{equation*}
+\cfrac{\cfrac{\cfrac{\cfrac{VA}{\{f:\ \beta ,\ x:\ \delta \} \ \vdash \ x\ :\ bool} \ \ \cfrac{\ \cfrac{VA}{\{f:\ \beta ,\ x:\ \delta \} \ \vdash \ f:\ \varphi \ \rightarrow \varepsilon } \ \ \ \ \cfrac{CA}{\{f:\ \beta ,\ x:\ \delta \} \ \vdash \ true\ :\ \varphi }}{\{f:\ \beta ,\ x:\delta \} \ \vdash \ f\ true\ :\ \varepsilon } \ ( FA) \ \cfrac{CA}{\{f:\ \beta ,\ x:\ \delta \} \ \vdash \ 19\ :\ \varepsilon }}{\{f:\ \beta ,\ x:\ \delta \} \ \vdash \ if\ x\ then\ f\ true\ else\ 19\ :\ \varepsilon } \ ( ITE)}{\{f:\ \beta \} \ \vdash \ fn\ x\ \Longrightarrow \ if\ x\ then\ f\ true\ else\ 19\ \ :\ \gamma } \ ( AF)}{\{\ \} \ \vdash fn\ f\ \Longrightarrow \ fn\ x\ \Longrightarrow \ if\ x\ then\ f\ true\ else\ 19\ :\ \alpha \ } \ ( AF)
+\end{equation*}
+
+$\\$
+$\\$
+$\\$
+$\\$
+
+$\displaystyle  \begin{array}{{l}}
+\varepsilon \ =\ int\\
+\varphi =\ bool\\
+\beta \ =\ \varphi \ \rightarrow \ \lambda \\
+\delta \ =\ bool\\
+\gamma \ =\ \delta \ \rightarrow \ \varepsilon \\
+\alpha \ =\ \beta \ \rightarrow \ \gamma 
+\end{array}$ \ 	
+$\implies$ \ 		
+$\displaystyle  \begin{array}{{l}}
+\varepsilon \ =\ int\\
+\varphi =\ bool\\
+\beta \ =\ bool\ \rightarrow \ int\\
+\delta \ =\ bool\ \\
+\gamma \ =\ bool\ \rightarrow \ int\\
+\alpha \ =\ \left( bool\ \rightarrow \ int\right) \ \rightarrow bool\ \rightarrow \ int
+\end{array}$	
+
+$\\$
+$\\$
+$\\$
+$\\$
+
+$\implies$		Type derivation for code is correct and evaluates to \ $\displaystyle \left( bool\ \rightarrow \ int\right) \ \rightarrow bool\ \rightarrow \ int$
+
+
+\newpage
+
+
+\subsection*{\textbf{3 - Type derivation for }$\displaystyle let\ fun\ f\ x\ =\ 5\ < \ x\ in\ fn\ y\ = >\ ( f\ 3) \ ||\ y\ end$\textbf{ with }$\displaystyle \Gamma \ =\ \{\ \}$}
+
+$\\$
+$\\$
+$\\$
+$\\$
+
+
+\begin{equation*}
+    \resizebox{.9\hsize}{!} {$
+        \cfrac{\cfrac{\cfrac{CA}{\left\{f:\beta \ \rightarrow \gamma , x:\beta \right\} \ \vdash \ 5\ :\ int} \ \ \ \ \cfrac{VA}{\left\{f:\ \beta \ \rightarrow \gamma ,\ x:\ \beta \right\} \ \vdash \ x\ :\ int}}{\left\{f:\ \beta \ \rightarrow \ \gamma ,\ x:\ \beta \right\} \ \vdash \ 5\ < \ x\ :\ \gamma } \ ( RO) \ \ \cfrac{\cfrac{\cfrac{\cfrac{VA}{\left\{f:\ \beta \ \rightarrow \gamma ,\ y:\ \varphi \right\} \ \vdash \ f:\ \psi \ \rightarrow \ \sigma } \ \ \ \ \cfrac{CA}{\left\{f:\ \beta \ \rightarrow \gamma ,\ y:\ \varphi \right\} \ \vdash \ 3:\ \psi }}{\left\{f:\ \beta \ \rightarrow \ \gamma ,\ y:\ \varphi \right\} \ \vdash \ f\ 3:\ bool} \ ( FA) \ \ \ \ \cfrac{VA}{\left\{f:\ \beta \ \rightarrow \gamma ,\ y:\varphi \right\} \ \vdash \ y:\ bool}}{\left\{f:\ \beta \ \rightarrow \ \gamma ,\ y:\ \varphi \right\} \ \vdash \ ( f\ 3) \ ||\ y\ :\ bool} \ ( LCR)}{\left\{f:\ \beta \ \rightarrow \gamma \right\} \ \vdash \ fn\ y\ \ \Longrightarrow \ ( f\ 3) \ ||\ y\ end\ :\ \alpha } \ ( AF)}{\{\ \} \ \vdash \ let\ fun\ f\ x\ =\ 5\ < \ x\ in\ fn\ y\ \Longrightarrow \ ( f\ 3) \ ||\ y\ end\ :\ \alpha \ } \ ( LF)    
+    $}
+\end{equation*}
+
+
+$\\$
+$\\$
+$\\$
+$\\$
+
+$\displaystyle  \begin{array}{{l}}
+\beta \ =\ int\\
+\gamma \ =\ int\\
+\alpha \ =\ \varphi \ \rightarrow \ bool\\
+\psi \ =\ \beta \\
+\sigma \ =\ \gamma \\
+\psi \ =\ int\\
+\varphi \ =\ bool
+\end{array}$ 		
+$\implies$ 		
+$\displaystyle  \begin{array}{{l}}
+\beta \ =\ int \\
+\gamma \ =\ int \\
+\alpha \ =\ bool\ \rightarrow \ bool \\
+\sigma \ =\ int \\
+\psi \ =\ int \\
+\varphi \ =\ bool
+\end{array}$
+ 
+$\\$
+$\\$
+$\\$
+$\\$
+
+$\implies$ \ 		Type derivation for code is correct and evaluates to $\displaystyle bool\ \rightarrow \ bool$
+
+\end{document}
