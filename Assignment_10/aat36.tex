@@ -82,7 +82,7 @@ $\\$
 
 \begin{equation*}
     \resizebox{.9\hsize}{!} {$
-        \cfrac{\cfrac{\cfrac{CA}{\left\{f:\beta \ \rightarrow \gamma , x:\beta \right\} \ \vdash \ 5\ :\ int} \ \ \ \ \cfrac{VA}{\left\{f:\ \beta \ \rightarrow \gamma ,\ x:\ \beta \right\} \ \vdash \ x\ :\ int}}{\left\{f:\ \beta \ \rightarrow \ \gamma ,\ x:\ \beta \right\} \ \vdash \ 5\ < \ x\ :\ \gamma } \ ( RO) \ \ \cfrac{\cfrac{\cfrac{\cfrac{VA}{\left\{f:\ \beta \ \rightarrow \gamma ,\ y:\ \varphi \right\} \ \vdash \ f:\ \psi \ \rightarrow \ \sigma } \ \ \ \ \cfrac{CA}{\left\{f:\ \beta \ \rightarrow \gamma ,\ y:\ \varphi \right\} \ \vdash \ 3:\ \psi }}{\left\{f:\ \beta \ \rightarrow \ \gamma ,\ y:\ \varphi \right\} \ \vdash \ f\ 3:\ bool} \ ( FA) \ \ \ \ \cfrac{VA}{\left\{f:\ \beta \ \rightarrow \gamma ,\ y:\varphi \right\} \ \vdash \ y:\ bool}}{\left\{f:\ \beta \ \rightarrow \ \gamma ,\ y:\ \varphi \right\} \ \vdash \ ( f\ 3) \ ||\ y\ :\ bool} \ ( LCR)}{\left\{f:\ \beta \ \rightarrow \gamma \right\} \ \vdash \ fn\ y\ \ \Longrightarrow \ ( f\ 3) \ ||\ y\ end\ :\ \alpha } \ ( AF)}{\{\ \} \ \vdash \ let\ fun\ f\ x\ =\ 5\ < \ x\ in\ fn\ y\ \Longrightarrow \ ( f\ 3) \ ||\ y\ end\ :\ \alpha \ } \ ( LF)    
+        \cfrac{\cfrac{\cfrac{CA}{\left\{f:\beta \ \rightarrow \gamma , x:\beta \right\} \ \vdash \ 5\ :\ int} \ \ \ \ \cfrac{VA}{\left\{f:\ \beta \ \rightarrow \gamma ,\ x:\ \beta \right\} \ \vdash \ x\ :\ int}}{\left\{f:\ \beta \ \rightarrow \ \gamma ,\ x:\ \beta \right\} \ \vdash \ 5\ < \ x\ :\ bool } \ ( RO) \ \ \cfrac{\cfrac{\cfrac{\cfrac{VA}{\left\{f:\ \beta \ \rightarrow \gamma ,\ y:\ \varphi \right\} \ \vdash \ f:\ \psi \ \rightarrow \ bool } \ \ \ \ \cfrac{CA}{\left\{f:\ \beta \ \rightarrow \gamma ,\ y:\ \varphi \right\} \ \vdash \ 3:\ \psi }}{\left\{f:\ \beta \ \rightarrow \ \gamma ,\ y:\ \varphi \right\} \ \vdash \ f\ 3:\ bool} \ ( FA) \ \ \ \ \cfrac{VA}{\left\{f:\ \beta \ \rightarrow \gamma ,\ y:\varphi \right\} \ \vdash \ y:\ bool}}{\left\{f:\ \beta \ \rightarrow \ \gamma ,\ y:\ \varphi \right\} \ \vdash \ ( f\ 3) \ ||\ y\ :\ bool} \ ( LCR)}{\left\{f:\ \beta \ \rightarrow \gamma \right\} \ \vdash \ fn\ y\ \ \Longrightarrow \ ( f\ 3) \ ||\ y\ end\ :\ \alpha } \ ( AF)}{\{\ \} \ \vdash \ let\ fun\ f\ x\ =\ 5\ < \ x\ in\ fn\ y\ \Longrightarrow \ ( f\ 3) \ ||\ y\ end\ :\ \alpha \ } \ ( LF)    
     $}
 \end{equation*}
 
@@ -94,17 +94,17 @@ $\\$
 
 $\displaystyle  \begin{array}{{l}}
 \beta \ =\ int\\
-\gamma \ =\ int\\
+\gamma \ =\ bool\\
 \alpha \ =\ \varphi \ \rightarrow \ bool\\
 \psi \ =\ \beta \\
-\sigma \ =\ \gamma \\
+\gamma \ = \ bool\\
 \psi \ =\ int\\
 \varphi \ =\ bool
 \end{array}$ 		
 $\implies$ 		
 $\displaystyle  \begin{array}{{l}}
 \beta \ =\ int \\
-\gamma \ =\ int \\
+\gamma \ =\ bool \\
 \alpha \ =\ bool\ \rightarrow \ bool \\
 \sigma \ =\ int \\
 \psi \ =\ int \\
@@ -117,5 +117,91 @@ $\\$
 $\\$
 
 $\implies$ \ 		Type derivation for code is correct and evaluates to $\displaystyle bool\ \rightarrow \ bool$
+
+\newpage
+
+\subsection*{\textbf{4 - Type inference for }$\displaystyle fn\ x\ \Longrightarrow \ if\ x\ then\ x\ +\ 1\ else\ x( 1)$}
+
+$\\$
+$\\$
+$\\$
+$\\$
+
+\begin{equation*}
+    \cfrac{\cfrac{\cfrac{VA}{\{x:\ \beta \} \ \vdash \ x\ :bool} \ \ \ \ \cfrac{\cfrac{VA}{\{x:\ \beta \} \ \vdash \ x\ :\ int} \ \cfrac{CA}{\{x:\ \beta \} \ \vdash \ x:\ int}}{\{x:\ \beta \} \ \vdash \ x\ +\ 1\ :\ \gamma } \ ( AO) \ \ \ \cfrac{\cfrac{VA}{\{x:\ \beta \} \vdash \ x\ :\ \varphi \ \rightarrow \ \gamma \ } \ \ \ \ \cfrac{CA}{\{x:\ \beta \} \ \vdash \ 1\ :\ \varphi }}{\{x:\ \beta \} \ \vdash \ x( 1) :\ \gamma \ } \ ( FA) \ }{\{\ x:\ \beta \ \} \ \vdash \ if\ x\ then\ x\ +\ 1\ else\ x( 1) \ :\ \gamma } \ ( ITE)}{\{\ \} \ \vdash \ fn\ x\ \Longrightarrow \ if\ x\ then\ x\ +\ 1\ else\ x(1) \ :\ \alpha } \ ( AF)
+\end{equation*}
+
+$\\$
+$\\$
+$\\$
+$\\$
+    
+$\displaystyle  \begin{array}{{l}}
+Constraints:\\
+\\
+\varphi =\ int\\
+\beta \ =\ \varphi \ \rightarrow \ \gamma \\
+\beta \ =\ bool\\
+\gamma \ =\ int\\
+\beta \ =\ bool\\
+\alpha \ =\ \beta \ \rightarrow \ \gamma 
+\end{array}$ 		
+
+$\\$
+$\\$
+$\\$
+$\\$
+
+$\implies$ 		 	$\displaystyle  \begin{array}{{l}}
+Unify\left( \ \left\{\varphi =\ int,\ \beta \ =\ \varphi \ \rightarrow \ \gamma ,\ \beta \ =\ bool,\ \gamma \ =\ int,\ \beta \ =\ bool,\ \alpha \ =\ \beta \ \rightarrow \ \gamma \right\} \ \right) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Eliminate\\
+Unify\left( \ \left\{\beta \ =\ int\ \rightarrow \ \gamma ,\ \beta \ =\ bool,\ \gamma \ =\ int,\ \beta \ =\ bool,\ \alpha \ =\ \beta \ \rightarrow \ \gamma \right\} \ \right) \ \circ \ \{\varphi \ =\ int\} \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Eliminate\\
+Unify\left( \ \left\{int\ \rightarrow \ \gamma \ =\ bool,\ \gamma \ =\ int,\ int\ \rightarrow \ \gamma \ =\ bool,\ \alpha \ =\ \left( int\ \rightarrow \ \gamma \right) \ \rightarrow \ \gamma \right\} \ \right) \ \circ \ \left\{\beta \ =\ int\ \rightarrow \gamma \right\} \ \circ \ \{\varphi \ =\ int\} \ \ \ \ \ \ \ \ \ \ \ \ \   :\ Unification\ Failure
+\end{array}$
+    
+\newpage
+    
+\subsection*{\textbf{5 - Type inference for }$let\ fun\ fact\ x\ =\ if\ x\ =\ 0\ then\ 1\ else\ fact\ ( x\ -\ 1) \ in\ fact\ end$}
+    
+$\\$
+$\\$
+$\\$
+$\\$
+
+\resizebox{1.0 \hsize}{!} {$
+    \cfrac{\cfrac{\cfrac{\cfrac{VA}{\left\{fact:\ \beta \ \rightarrow \ \gamma ,\ x:\ \beta \right\} \ \vdash \ x\ :\ \varepsilon } \ \cfrac{CA}{\left\{fact:\ \beta \ \rightarrow \ \gamma ,\ x:\ \beta \right\} \ \vdash \ 0\ :\ \varepsilon }}{\left\{fact:\ \beta \ \rightarrow \ \gamma ,\ x:\ \beta \right\} \ \vdash \ x=0\ :\ bool} \ ( RO) \ \ \ \ \cfrac{CA\ }{\left\{fact:\ \beta \ \rightarrow \ \gamma ,\ x:\ \beta \right\} \vdash \ 1\ :\ \gamma } \ \cfrac{\cfrac{VA}{\left\{fact:\ \beta \ \rightarrow \ \gamma ,\ x:\ \beta \right\} \ \vdash \ fact\ :\ \omega \ \rightarrow \ \gamma } \ \cfrac{\cfrac{VA}{\left\{fact:\ \beta \ \rightarrow \ \gamma ,\ x:\ \beta \right\} \ \vdash \ x\ :\ \omega } \ \cfrac{CA}{\left\{fact:\ \beta \ \rightarrow \ \gamma ,\ x:\ \beta \right\} \ \vdash \ 1\ :\ \omega }}{\left\{fact:\ \beta \ \rightarrow \ \gamma ,\ x:\ \beta \right\} \ \vdash \ x\ -\ 1\ :\ \omega } \ ( AO)}{\left\{fact:\ \beta \ \rightarrow \ \gamma ,\ x:\ \beta \right\} \ \vdash \ fact( x-1) \ :\ \gamma } \ ( FA)}{\left\{fact:\ \beta \ \rightarrow \ \gamma ,\ x:\ \beta \right\} \ \vdash \ if\ x=0\ then\ 1\ else\ fact( x-1) \ :\ \gamma } \ ( ITE) \ \ \ \ \ \ \ \ \cfrac{VA}{\left\{fact:\ \beta \rightarrow \gamma \right\} \ \vdash fact\ :\ \alpha }}{\{\ \} \ \vdash \ let\ fun\ fact\ x\ =\ if\ x\ =\ 0\ then\ 1\ else\ fact\ ( x\ -\ 1) \ in\ fact\ end\ :\ \alpha } \ ( LF)
+$}
+
+$\\$
+
+$\displaystyle  \begin{array}{{l}}
+Constrains:\\
+\\
+\alpha \ =\ \beta \ \rightarrow \ \gamma \\
+\omega =\ int\\
+\beta \ =\ \omega \\
+\beta \ \rightarrow \ \gamma \ =\ \omega \ \rightarrow \ \gamma \\
+\gamma \ =\ int\\
+\varepsilon \ =\ int\\
+\beta \ =\ \varepsilon 
+\end{array}$
+
+$\\$
+$\\$
+
+$\implies$		$\displaystyle  \begin{array}{{l}}
+Unify\left( \ \left\{\alpha \ =\ \beta \ \rightarrow \ \gamma ,\ \omega =\ int,\ \beta \ =\ \omega ,\ \beta \ \rightarrow \ \gamma \ =\ \omega \ \rightarrow \ \gamma ,\ \gamma \ =\ int,\ \varepsilon \ =\ int,\ \beta \ =\ \varepsilon \ \right\}\right) \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Eliminate\\
+Unify\left( \ \left\{\omega =\ int,\ \beta \ =\ \omega ,\ \beta \ \rightarrow \ \gamma \ =\ \omega \ \rightarrow \ \gamma ,\ \gamma \ =\ int,\ \varepsilon \ =\ int,\ \beta \ =\ \varepsilon \ \right\}\right) \ \circ \ \left\{\alpha \ =\ \beta \ \rightarrow \ \gamma \right\} \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Eliminate\\
+Unify\left( \ \left\{\beta \ =\ int,\ \beta \ \rightarrow \ \gamma \ =\ int\ \rightarrow \ \gamma ,\ \gamma \ =\ int,\ \varepsilon \ =\ int,\ \beta \ =\ \varepsilon \ \right\}\right) \ \circ \ \{\omega \ =\ int\} \ \circ \ \left\{\alpha \ =\ \beta \ \rightarrow \ \gamma \right\} \ \ \ \ \ \ \ \ \ \ \ :\ Eliminate\\
+Unify\left( \ \left\{int\ \rightarrow \ \gamma \ =\ int\ \rightarrow \ \gamma ,\ \gamma \ =\ int,\ \varepsilon \ =\ int,\ int\ =\ \varepsilon \ \right\}\right) \ \circ \ \{\beta \ =\ int\} \ \circ \ \{\omega \ =\ int\} \ \circ \ \left\{\alpha \ =\ \beta \ \rightarrow \ \gamma \right\} \ \ :\ Decompose\\
+Unify( \ \{int\ =\ int,\ \gamma \ =\ \gamma ,\ \gamma \ =\ int,\ \varepsilon \ =\ int,\ int\ =\ \varepsilon \ \}) \ \circ \ \{\beta \ =\ int\} \ \circ \ \{\omega \ =\ int\} \ \circ \ \left\{\alpha \ =\ \beta \ \rightarrow \ \gamma \right\} \ \ \ \ \ \ \ :\ Delete\\
+Unify( \ \{\gamma \ =\ \gamma ,\ \gamma \ =\ int,\ \varepsilon \ =\ int,\ int\ =\ \varepsilon \ \}) \ \circ \ \{\beta \ =\ int\} \ \circ \ \{\omega \ =\ int\} \ \circ \ \left\{\alpha \ =\ \beta \ \rightarrow \ \gamma \right\} \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Delete\\
+Unify( \ \{\gamma \ =\ int,\ \varepsilon \ =\ int,\ int\ =\ \varepsilon \ \}) \ \circ \ \{\beta \ =\ int\} \ \circ \ \{\omega \ =\ int\} \ \circ \ \left\{\alpha \ =\ \beta \ \rightarrow \ \gamma \right\} \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Eliminate\\
+Unify( \ \{\varepsilon \ =\ int,\ int\ =\ \varepsilon \ \}) \ \circ \ \{\gamma \ =\ int\} \ \circ \ \{\beta \ =\ int\} \ \circ \ \{\omega \ =\ int\} \ \circ \ \left\{\alpha \ =\ \beta \ \rightarrow \ \gamma \right\} \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Eliminate\\
+Unify( \ \{int\ =\ int\ \}) \ \circ \ \{\varepsilon \ =\ int\} \ \circ \ \{\gamma \ =\ int\} \ \circ \ \{\beta \ =\ int\} \ \circ \ \{\omega \ =\ int\} \ \circ \ \left\{\alpha \ =\ \beta \ \rightarrow \ \gamma \right\} \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Delete\\
+Unify(\{\ \}) \ \ \circ \ \{\varepsilon \ =\ int\} \ \circ \ \{\gamma \ =\ int\} \ \circ \ \{\beta \ =\ int\} \ \circ \ \{\omega \ =\ int\} \ \circ \ \left\{\alpha \ =\ \beta \ \rightarrow \ \gamma \right\} \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ Identity\\
+\{\ \} \ \circ \ \{\varepsilon \ =\ int\} \ \circ \ \{\gamma \ =\ int\} \ \circ \ \{\beta \ =\ int\} \ \circ \ \{\omega \ =\ int\} \ \circ \ \left\{\alpha \ =\ \beta \ \rightarrow \ \gamma \right\}\\
+\\
+\Longrightarrow \left\{\varepsilon \ =\ int\ ,\ \gamma \ =\ int,\ \beta \ =\ int,\ \omega \ =\ int,\ \alpha \ =\ int\ \rightarrow \ int\right\}
+\end{array}$
 
 \end{document}
